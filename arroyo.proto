@@ -1,0 +1,24 @@
+syntax = "proto3";
+package arroyo;
+
+option go_package = "/protocol";
+
+
+message UDPTunnelNewClient {
+    uint32 client_id = 1;
+    string remote_addr = 2;
+    uint32 remote_port = 3;
+}
+
+message UDPTunnelData {
+    uint32 client_id = 1;
+    bool is_response = 2;
+    bytes data = 3;
+}
+
+message UDPTunnelPacket {
+    oneof payload {
+        UDPTunnelNewClient new_client = 1;
+        UDPTunnelData data = 2;
+    }
+}
