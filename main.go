@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/djfigs1/arroyo/client"
+	"github.com/djfigs1/arroyo/tunnel"
 
 	"github.com/charmbracelet/huh"
 )
@@ -19,9 +19,9 @@ func main() {
 		Value(&doOffer).
 		Run()
 
-	var arroyo *client.Arroyo
+	var arroyo *tunnel.Arroyo
 	if doOffer {
-		invitation := client.NewArroyoInvitation()
+		invitation := tunnel.NewArroyoInvitation()
 
 		fmt.Println(invitation.InvitationToken())
 
@@ -34,7 +34,7 @@ func main() {
 		var invitationToken string
 
 		huh.NewText().Title("Enter Invitation Token").Value(&invitationToken).Run()
-		response := client.NewArroyoResponse(invitationToken)
+		response := tunnel.NewArroyoResponse(invitationToken)
 		fmt.Println(response.ResponseToken())
 		arroyo = response.Connect()
 		fmt.Println("Connected!")
