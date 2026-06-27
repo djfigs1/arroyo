@@ -1,14 +1,28 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"os"
 
+	"github.com/djfigs1/arroyo/gui"
 	"github.com/djfigs1/arroyo/tunnel"
 
 	"github.com/charmbracelet/huh"
 )
 
 func main() {
+	guiFlag := flag.Bool("gui", false, "Launch GUI mode")
+	flag.Parse()
+
+	if *guiFlag {
+		if err := gui.Run(); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			os.Exit(1)
+		}
+		return
+	}
+
 	var doOffer bool
 	huh.NewSelect[bool]().
 		Title("Pick a mode.").
